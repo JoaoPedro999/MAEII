@@ -1,0 +1,53 @@
+---
+title: "Atividade_01"
+author: "João Pedro Araújo Teixeira"
+date: "2025-09-04"
+output: word_document
+---
+
+
+```{r}
+#Dados das exportações
+
+produtos <- c("Aço", "Açucar", "Soja", "Carne Bovina")
+
+exportacoes_antes <- c(5200, 3100, 14500, 7200) # em milhões de US$
+
+exportacoes_depois <- c(4000, 2500, 15000, 7100) # após tarifas 
+
+#DAtAFRAME
+
+comercio <- data.frame(
+  Produto = produtos,
+  Antes = exportacoes_antes,
+  Depois = exportacoes_depois
+)
+#Variação
+comercio$Variacao_percentual <- round(((comercio$Depois - comercio$Antes) / comercio$Antes) * 100, 1)
+
+print(comercio)
+
+#Gráfico
+
+valores <- rbind(comercio$Antes, comercio$Depois) 
+nomes <- comercio$Produto  # Nomes dos produtos
+
+
+barplot(valores, 
+        beside = TRUE,  # Barras lado a lado
+        names.arg = nomes,
+        col = c("lightblue", "pink"),
+        main = "Exportações Antes e Depois das Tarifas",
+        xlab = "Produtos",
+        ylab = "Exportações (milhões de US$)",
+        ylim = c(0, 16000))
+
+#Legenda
+legend("topright", 
+       legend = c("Antes", "Depois"), 
+       fill = c("lightblue", "pink"))
+
+
+
+```
+
