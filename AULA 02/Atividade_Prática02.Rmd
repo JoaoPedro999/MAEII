@@ -1,0 +1,51 @@
+---
+title: "Atividade_Pratica02"
+output: word_document
+date: "2025-09-19"
+---
+
+```{r Dados}
+
+generos <- c("Ação", "Comédia", "Drama", "Animação") # Gêneros dos filmes
+bilheteria <- c(820, 460, 530, 690)
+nota <- c(8.6, 7.1, 7.8, 8.2)
+
+```
+
+```{r DataFrame}
+
+filmes <- data.frame(
+  generos = generos,
+  bilheteria = bilheteria,
+  nota = nota
+  )
+```
+
+```{r Analise Estatistica}
+
+#bilheteria
+media_bilheteria <- mean(filmes$bilheteria)
+mediana_bilheteria <- median(filmes$bilheteria)
+desvio_bilheteria <- sd(filmes$bilheteria)
+top_bilheteria <- filmes$generos[which.max(filmes$bilheteria)]
+
+# Notas
+media_notas <- mean(filmes$nota)
+mediana_notas <- median(filmes$nota)
+
+```
+
+```{r Gráfico}
+
+old_par <- par(no.readonly = TRUE)
+par(mar = c(8, 4, 4, 1)) #margens: bottom, left, top, right
+bp <- barplot(
+  filmes$bilheteria,
+  names.arg = filmes$generos,
+  las = 1, # Posição do rótulo do eixo x 
+  main = "Gêneros mais populares do cinema",
+  ylab = "Milhares de ingressos",
+  col= c("purple", "red", "gold", "orange")
+)
+```
+
