@@ -1,0 +1,42 @@
+---
+title: "Atividade03"
+author: "João Pedro Araújo Teixeira"
+output: word_document
+---
+
+
+
+```{r}
+# Base de Dados
+library(readr)
+
+dados <- read_csv(
+  "C:/Users/joaop/Documents/GitHub/MAEII/AULA 03/compet_avaliativo.csv",
+  locale = locale(encoding = "UTF-8")
+)
+
+# Corrigir nomes 
+names(dados) <- iconv(names(dados), from = "UTF-8", to = "ASCII//TRANSLIT")
+names(dados) <- gsub(" ", "_", names(dados))
+
+
+# Padronizar os indicadores (z-score)
+z1 <- scale(dados[["Formalidade_no_mercado_de_trabalho"]])
+z2 <- scale(dados[["Crescimento_dos_empregos_formais"]])
+z3 <- scale(dados[["Complexidade_economica"]])
+z4 <- scale(dados[["Taxa_bruta_de_matricula_-_Ensino_superior"]])
+z5 <- scale(dados[["Qualificacao_dos_trabalhadores_em_emprego_formal"]])
+
+# Índice de Estrutura e Qualificação (média dos z-scores)
+dados$IEQ <- (z1 + z2 + z3 + z4 + z5) / 5
+
+# Lista ordenada (do maior para o menor IEQ)
+dados <- dados[order(-dados$IEQ), c("Municipio", "UF", "IEQ")]
+
+# Para aparecer a lista inteira no word
+print(head(dados, 26), n = 26)
+
+
+```
+
+

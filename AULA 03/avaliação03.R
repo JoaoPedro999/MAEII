@@ -1,15 +1,32 @@
-aula <- read.csv("C:/Users/252506/Desktop/AULA 03/compet_avaliativo.csv", stringsAsFactors = FALSE)
+---
+title: "Atividade03"
+author: "João Pedro Araújo Teixeira"
+date: "2025-10-21"
+output: html_document
+---
+
+
+```{r}
+
+dados <- read.csv("C:/Users/joaop/Documents/GitHub/MAEII/AULA 03/compet_avaliativo.csv", stringsAsFactors = FALSE)
+names(dados)
 
 # Padronizar os indicadores (z-score)
 
-z1 <- scale(aula$Formalidade.no.mercado.de.trabalho)
-z2 <- scale(aula$Crescimento.dos.empregos.formais)
-z3 <- scale(aula$Complexidade.econômica)
-z4 <- scale(aula$Taxa.bruta.de.matrícula.-.Ensino.superior)
+z1 <- scale(dados$Formalidade.no.mercado.de.trabalho)
+z2 <- scale(dados$Crescimento.dos.empregos.formais)
+z3 <- scale(dados$Complexidade.econômica)
+z4 <- scale(dados$Taxa.bruta.de.matrícula...Ensino.superior)
+z5 <- scale(dados$Qualificacao.dos.trabalhadores.em.emprego.formal)
 
-# Índice médio de atratividade
-aula$IAE <- (z1 + z2 + z3 + z4) / 4
+# Índice de Estrutura e Qualificação
 
-# Ranking
-aula <- aula[order(-aula$IAE), c("Município", "UF", "IAE")]
-head(aula, 10)
+dados$IEQ <- (z1 + z2 + z3 + z4 + z5) / 4
+
+# lista
+
+dados <- dados[order(-dados$IEQ), c("Município", "UF", "IEQ")]
+
+head(dados, 26)
+
+```
